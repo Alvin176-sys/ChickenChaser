@@ -19,6 +19,7 @@ public class PlayerChicken : Chicken
     protected override void Awake()
     {
         base.Awake();
+        HUDManager.Instance.BindPlayer(this);
         PlayerControls.Initialize(this);
         PlayerControls.UseGameControls();
     }
@@ -124,5 +125,17 @@ public class PlayerChicken : Chicken
 
     public override void OnCaptured()
     {
+    }
+    public AbstractAbility GetJumpAbility() 
+    {
+        return _jumpAbility;
+    }
+    public AbstractAbility GetDashAbility()
+    {
+        return _dashAbility;
+    }
+    public AbstractAbility GetCluckAbility()
+    {
+        return _cluckAbility;
     }
 }
