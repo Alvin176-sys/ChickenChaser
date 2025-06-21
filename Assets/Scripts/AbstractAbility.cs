@@ -4,10 +4,8 @@ using UnityEngine;
 
 public abstract class AbstractAbility : MonoBehaviour
 {
+    [SerializeField] protected AbilityStats stats;
     //every ability should have the following:
-    [SerializeField] private Sprite _icon;
-    [SerializeField] private float _cooldown;
-    [SerializeField] private bool _canBeHeld;
 
     protected Chicken Owner; //who controls the chicken
 
@@ -20,12 +18,12 @@ public abstract class AbstractAbility : MonoBehaviour
 
     public Sprite GetIcon()
     {
-        return _icon;
+        return stats.Icon;
     }
 
     public float GetCooldownPercent()
     {
-        return _currentCooldownTime / _cooldown;
+        return _currentCooldownTime / stats.Cooldown;
     }
 
     private bool IsTriggerAnimation()
@@ -64,7 +62,7 @@ public abstract class AbstractAbility : MonoBehaviour
             _isReady = false;
 
             //this will loop indefinitely until the cooldown reaches its time
-            while (_currentCooldownTime < _cooldown)
+            while (_currentCooldownTime < stats.Cooldown)
             {
                 _currentCooldownTime += Time.deltaTime;
                 //wait until next frame
@@ -72,10 +70,10 @@ public abstract class AbstractAbility : MonoBehaviour
             }
 
             //one cooldown has reached max, mark as ready, and set the currentTime to cooldownTimer so that it's 100%
-            _currentCooldownTime = _cooldown;
+            _currentCooldownTime = stats.Cooldown;
             _isReady = true;
         }
-        while (_isBeingHeld && _canBeHeld); //boolean that triggers if the player continues to hold keys for future commands?
+        while (_isBeingHeld && stats.CanBeHeld); //boolean that triggers if the player continues to hold keys for future commands?
 
         StopUsingAbility();
     }
@@ -107,7 +105,7 @@ public abstract class AbstractAbility : MonoBehaviour
     //end the action immediately
     public virtual void ForceCancelAbility()
     {
-        _currentCooldownTime = _cooldown;
+        _currentCooldownTime = stats.Cooldown;
         _isReady = true;
         StopAllCoroutines();
         StopUsingAbility();

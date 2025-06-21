@@ -114,10 +114,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5662061587206153138}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -146,10 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f5b4c047464ad43b706e0e10f1a574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 8
-  MaxSpeed: 2
-  FootRadius: 0.2
-  FootDistance: 0.75
+  stats: {fileID: 11400000, guid: 017ba1d5f6d114f4495482016036c47f, type: 2}
   Head: {fileID: 2734304907029226763}
   Foot: {fileID: 821473674308985966}
   pitchLimit: 30
@@ -170,9 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c464f9aa67fd442419b17e34252f10a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 21300000, guid: 0ed5864c699be704e93fffa2c7a186fb, type: 3}
-  _cooldown: 1
-  _canBeHeld: 1
+  stats: {fileID: 11400000, guid: 0bade09c7e204e14f84a55253a0406ca, type: 2}
   _cluckParticle: {fileID: 7431843189057215469}
   _cluckSound: {fileID: 8300000, guid: 0dbc98a20c25b0d47af6e7b72af59db6, type: 3}
 --- !u!114 &3390785536073673641
@@ -187,9 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a53c6b7afb4b843be805ef69fb0fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 21300000, guid: 742ac45aa13714c4c8de337aa6303038, type: 3}
-  _cooldown: 4
-  _canBeHeld: 0
+  stats: {fileID: 11400000, guid: 5a502835cf3e02b4898ede4ba89909f7, type: 2}
   _dashDistance: 3
   _dashDuration: 0.2
   _feathers: {fileID: 7431843189057215469}
@@ -205,9 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af4af7abd86b76458c383ab2c1a2b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 21300000, guid: a47bf4bfcd00d7e46a27a3f5e4452ae0, type: 3}
-  _cooldown: 5
-  _canBeHeld: 0
+  stats: {fileID: 11400000, guid: b21c9fd76a9efd148b5d4d446f134572, type: 2}
   _jumpForce: 4
 --- !u!1 &7300546798727469033
 GameObject:

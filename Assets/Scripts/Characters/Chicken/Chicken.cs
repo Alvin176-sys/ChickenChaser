@@ -3,13 +3,8 @@ using Utilities;
 
 public abstract class Chicken : MonoBehaviour
 {
-    [Header("Movement")]
-    [SerializeField] protected float Speed;
-    [SerializeField] protected float MaxSpeed;
-
-    [Header("Foot Management")]
-    [SerializeField] protected float FootRadius;
-    [SerializeField] protected float FootDistance;
+    [SerializeField] protected ChickenStats stats;
+    
 
     [Header("Objects")]
     [SerializeField] protected Transform Head;
@@ -43,7 +38,7 @@ public abstract class Chicken : MonoBehaviour
     private void HandleGroundState()
     {
         //returns true if the sphere sweep intersects any collider...otherwise returns false
-        bool newGroundedState = Physics.SphereCast(Foot.position, FootRadius, Vector3.down, out RaycastHit slope, FootDistance);
+        bool newGroundedState = Physics.SphereCast(Foot.position, stats.FootRadius, Vector3.down, out RaycastHit slope, stats.FootDistance);
 
         //if the ground state is different
         if (newGroundedState != IsGrounded)

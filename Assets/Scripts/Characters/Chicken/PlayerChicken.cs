@@ -95,21 +95,21 @@ public class PlayerChicken : Chicken
             direction = Vector3.ProjectOnPlane(_moveDirection, SlopeNormal);
         }
 
-        ThisRigidBody.AddForce(transform.rotation * direction * Speed, ForceMode.Acceleration);
+        ThisRigidBody.AddForce(transform.rotation * direction * stats.Speed, ForceMode.Acceleration);
 
         //we only care about horizontal speed so Y doesn't matter
         Vector2 horizontalVelocity = new Vector2(ThisRigidBody.linearVelocity.x, ThisRigidBody.linearVelocity.z);
         CurrentSpeed = horizontalVelocity.magnitude;
 
-        if (CurrentSpeed > MaxSpeed)
+        if (CurrentSpeed > stats.MaxSpeed)
         {
-            horizontalVelocity = horizontalVelocity.normalized * MaxSpeed;
+            horizontalVelocity = horizontalVelocity.normalized * stats.MaxSpeed;
 
             //limit the speed but make sure to keep the gravity speed
             ThisRigidBody.linearVelocity = new Vector3(horizontalVelocity.x, ThisRigidBody.linearVelocity.y, horizontalVelocity.y);
 
             //lock speed to prevent weird bugs
-            CurrentSpeed = MaxSpeed;
+            CurrentSpeed = stats.MaxSpeed;
         }
 
         HandleLooking();
