@@ -1,7 +1,8 @@
+using Interfaces;
 using UnityEngine;
 using Utilities;
 
-public abstract class Chicken : MonoBehaviour
+public abstract class Chicken : MonoBehaviour, IVisualDetectable, ITrappable
 {
     [SerializeField] protected ChickenStats stats;
     
@@ -9,9 +10,11 @@ public abstract class Chicken : MonoBehaviour
     [Header("Objects")]
     [SerializeField] protected Transform Head;
     [SerializeField] protected Transform Foot;
+    protected float Visibility = 1;
 
     protected Rigidbody ThisRigidBody;
     protected Animator AnimatorController;
+    protected Collider BodyCollider;
     public bool IsGrounded { get; protected set; }
     public float CurrentSpeed { get; protected set; }
 
@@ -22,6 +25,7 @@ public abstract class Chicken : MonoBehaviour
     {
         ThisRigidBody = GetComponent<Rigidbody>();
         AnimatorController = GetComponentInChildren<Animator>();
+        BodyCollider = GetComponentInChildren<Collider>();
     }
 
     private void FixedUpdate()
@@ -34,7 +38,10 @@ public abstract class Chicken : MonoBehaviour
     {
         
     }
-
+    public Vector3 DistanceFromZero(Vector3 zero)
+    {
+        return zero - transform.position;
+    }
     private void HandleGroundState()
     {
         //returns true if the sphere sweep intersects any collider...otherwise returns false
@@ -83,5 +90,36 @@ public abstract class Chicken : MonoBehaviour
     public Vector3 GetLookDirection()
     {
         return Head.forward;
+    }
+
+    public void AddVisibility(float visibility)
+    {
+        Visibility += visibility;
+    }
+
+    public void RemoveVisibility(float visibility)
+    {
+        Visibility -= Mathf.Max(0, visibility);
+        
+    }
+
+    public float GetVisibility()
+    {
+        return Visibility;
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
+    }
+
+    public bool CanBeTrapped()
+    {
+        return isActiveAndEnabled;
+    }
+
+    public void OnPreCapture()
+    {
+        enabled = false;
     }
 }

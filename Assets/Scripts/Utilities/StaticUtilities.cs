@@ -13,7 +13,7 @@ namespace Utilities
         
         
         public static readonly int HumanLayer = 1 << LayerMask.NameToLayer("Human");
-        public static readonly int PlayerLayer = 1 << LayerMask.NameToLayer("Player");
+        public static readonly int PlayerLayer = 1 << LayerMask.NameToLayer("PlayerChicken");
         public static readonly int ChickenAiLayer = 1 << LayerMask.NameToLayer("AiChicken");
         
         //Describes layers for detection

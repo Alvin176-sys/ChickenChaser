@@ -466,10 +466,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2228279601188424131, guid: 0a2e4d3e01a53104387673446a1e818d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3145872010256159316, guid: 0a2e4d3e01a53104387673446a1e818d,
         type: 3}
       propertyPath: m_Name
       value: Feathers
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145872010256159316, guid: 0a2e4d3e01a53104387673446a1e818d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6624566025265921448, guid: 0a2e4d3e01a53104387673446a1e818d,
         type: 3}
@@ -769,6 +779,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LandEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 2675758558832646395, guid: 61f8ddca288751145acb1fe5a748a7ee,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -792,6 +807,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Clucks
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401042580339806849, guid: e3990c153d2749346819535c159facef,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2882464228704020394, guid: e3990c153d2749346819535c159facef,
         type: 3}

@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 295938024690401452}
   - component: {fileID: 679397203369883940}
   - component: {fileID: 3615475949504207687}
-  - component: {fileID: 6227186405170894136}
+  - component: {fileID: 5931008288549423283}
   m_Layer: 9
   m_Name: AIChicken
   m_TagString: Untagged
@@ -106,10 +106,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5662061587206153138}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -134,7 +134,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5662061587206153138}
   m_Enabled: 1
-  m_AgentTypeID: -334000983
+  m_AgentTypeID: 1479372276
   m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8
@@ -148,7 +148,7 @@ NavMeshAgent:
   m_BaseOffset: 0.16
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6227186405170894136
+--- !u!114 &5931008288549423283
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,14 +157,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5662061587206153138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bbe2fce82a68f5419982f0c7878c716, type: 3}
+  m_Script: {fileID: 11500000, guid: 094b0b1ee88cd7b4cba56eeb3dc6530b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 03f8222ea282f624090807125a2c0276, type: 2}
-  head: {fileID: 2734304907029226763}
-  foot: {fileID: 821473674308985966}
-  landEffect: {fileID: 3095555676156603147}
-  activeHearing: {fileID: 11400000, guid: bea74cc03f6df55409ece03fb1d40aba, type: 2}
+  stats: {fileID: 11400000, guid: 017ba1d5f6d114f4495482016036c47f, type: 2}
+  Head: {fileID: 2734304907029226763}
+  Foot: {fileID: 821473674308985966}
+  activehearing: {fileID: 11400000, guid: bea74cc03f6df55409ece03fb1d40aba, type: 2}
 --- !u!1 &8273480113772969671
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,12 +581,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61f8ddca288751145acb1fe5a748a7ee, type: 3}
---- !u!198 &3095555676156603147 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 80139270534471525, guid: 61f8ddca288751145acb1fe5a748a7ee,
-    type: 3}
-  m_PrefabInstance: {fileID: 3164105574418101358}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3796625931342048049 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2258971284688592735, guid: 61f8ddca288751145acb1fe5a748a7ee,
