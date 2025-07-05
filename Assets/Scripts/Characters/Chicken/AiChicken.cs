@@ -1,6 +1,7 @@
 using AI;
 using Interfaces;
 using ScriptableObjects;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using Utilities;
@@ -20,6 +21,8 @@ public class AiChicken : Chicken, IDetector
         agent.speed = stats.MaxSpeed;
         agent.acceleration = stats.Speed;
         agent.SetDestination(Vector3.zero);
+        PlayerChicken.OnPlayerCaught += AiChickenGather;
+        PlayerChicken.OnPlayerEscape += AiChickenFollow;
     }
 
     private void OnEnable()
@@ -27,20 +30,32 @@ public class AiChicken : Chicken, IDetector
         facetarget.enabled = false;
         agent.enabled = true;
         audiodetection.SetStats(activehearing);
+        BodyCollider.enabled = true;
+    }
+    private void OnDisable()
+    {
+        facetarget.enabled = true;
+        agent.ResetPath();
+        agent.enabled = false;
+        BodyCollider.enabled = false;
     }
     public override void OnCaptured()
     {
-        throw new System.NotImplementedException();
+        enabled = false;
+        agent.enabled = false;
     }
 
     public override void OnEscaped(Vector3 position)
     {
-        throw new System.NotImplementedException();
+        Visibility = 0;
+        AiChickenGather(position);
+        StartCoroutine(CheckForEscaped());
     }
 
     public override void OnFreedFromCage()
     {
-        throw new System.NotImplementedException();
+        enabled = true;
+        agent.enabled = true;
     }
 
     protected override void HandleMovement()
@@ -56,5 +71,19 @@ public class AiChicken : Chicken, IDetector
         Debug.Log($"I'm moving towards {location}");
         agent.SetDestination(location);
         AnimatorController.SetBool(StaticUtilities.CluckAnimID, false);
+    }
+    public void AiChickenGather(Vector3 location)
+    {
+        agent.SetDestination(location);
+    }
+    public void AiChickenFollow(Vector3 location)
+    { 
+        agent.SetDestination(location);
+    }
+    private IEnumerator CheckForEscaped()
+    { 
+        WaitUntil target = new WaitUntil(()=> agent.hasPath && agent.remainingDistance <= agent.stoppingDistance);
+        yield return target;
+        Destroy(gameObject);
     }
 }

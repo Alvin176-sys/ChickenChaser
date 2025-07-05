@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerChicken : Chicken
 {
@@ -15,13 +17,17 @@ public class PlayerChicken : Chicken
     [SerializeField] private AbstractAbility _cluckAbility;
     [SerializeField] private AbstractAbility _dashAbility;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    protected override void Awake()
+    public static Action<Vector3> OnPlayerCaught;
+    public static Action<Vector3> OnPlayerEscape;
+
+   // Start is called once before the first execution of Update after the MonoBehaviour is created
+   protected override void Awake()
     {
         base.Awake();
         HUDManager.Instance.BindPlayer(this);
         PlayerControls.Initialize(this);
         PlayerControls.UseGameControls();
+        
     }
 
     private void OnDisable()
@@ -30,6 +36,8 @@ public class PlayerChicken : Chicken
         _jumpAbility.ForceCancelAbility();
         _cluckAbility.ForceCancelAbility();
         _dashAbility.ForceCancelAbility();
+        ThisRigidBody.isKinematic = true;
+        BodyCollider.enabled = false;
     }
    
     public void SetDashState(bool state)
@@ -117,14 +125,26 @@ public class PlayerChicken : Chicken
 
     public override void OnFreedFromCage()
     {
+        enabled = true;
+        _cluckAbility.StopUsingAbility();
+        PlayerControls.UseGameControls();
     }
 
     public override void OnEscaped(Vector3 position)
     {
+        OnPlayerEscape?.Invoke(transform.position);
+        NavMeshAgent agent = gameObject.AddComponent<NavMeshAgent>();
+        agent.enabled = true;
+        agent.agentTypeID = 0;
+        agent.SetDestination(position);
+        enabled = false;
     }
 
     public override void OnCaptured()
     {
+        OnPlayerCaught?.Invoke(transform.position);
+        Visibility = 0;
+        _cluckAbility.StartUsingAbility();
     }
     public AbstractAbility GetJumpAbility() 
     {
@@ -137,5 +157,13 @@ public class PlayerChicken : Chicken
     public AbstractAbility GetCluckAbility()
     {
         return _cluckAbility;
+
+    }
+   
+
+    private void OnEnable()
+    {
+        ThisRigidBody.isKinematic = false;
+        BodyCollider.enabled = true;
     }
 }
