@@ -19,6 +19,7 @@ public class PlayerChicken : Chicken
 
     public static Action<Vector3> OnPlayerCaught;
     public static Action<Vector3> OnPlayerEscape;
+    public static Action<Vector3> OnPlayerRescue;
 
    // Start is called once before the first execution of Update after the MonoBehaviour is created
    protected override void Awake()

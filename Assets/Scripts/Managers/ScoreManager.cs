@@ -64,24 +64,22 @@ public class ScoreManager : MonoBehaviour
     //These need to be enabled as the developer adds them...
     private void OnEnable()
     {
-        print("Fix Score");
-        /*
         PlayerChicken.OnPlayerCaught += LoseGame;
-        PlayerChicken.OnPlayerRescued += OnPlayerRescued;
-        PlayerChicken.OnPlayerEscaped += WinGame;
-        */
+        //PlayerChicken.OnPlayerRescue += OnPlayerRescued;
+        PlayerChicken.OnPlayerEscape += WinGame;
         SettingsManager.SaveFile.onUIScaleChanged += OnUIScaleChanged;
         SettingsManager.SaveFile.onUIScaleChanged += OnUIScaleChanged;
     }
 
+
     private void OnDisable()
     {
         
-        /*
+        
         PlayerChicken.OnPlayerCaught -= LoseGame;
-        PlayerChicken.OnPlayerRescued -= OnPlayerRescued;
-        PlayerChicken.OnPlayerEscaped -= WinGame;
-        */
+        //PlayerChicken.OnPlayerRescued -= OnPlayerRescued;
+        PlayerChicken.OnPlayerEscape -= WinGame;
+        
         SettingsManager.SaveFile.onUIScaleChanged -= OnUIScaleChanged;
     }
 
@@ -108,8 +106,8 @@ public class ScoreManager : MonoBehaviour
         timeSpent.text = $"{s.Minutes}m {s.Seconds}s {s.Milliseconds}ms";
         finalScore.text = ((_cachedDidWin?1 - scoreCurve.Evaluate(_cachedTime / expectedEndTime):0) * maximumTimePoints + (pointsPerSavedChicken * GameManager.NumChickensSaved)).ToString(CultureInfo.InvariantCulture);
 
-        bool x = true;
-        //bool x = AiChicken.NumActiveAIChickens() == 0;
+       
+        bool x = AiChicken.NumOfActiveAiChicken() == 0;
         
         //Determine which button to show
         hopeIsNotLost.SetActive(!x);

@@ -1,6 +1,8 @@
 using AI;
 using Interfaces;
+using Managers;
 using ScriptableObjects;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,6 +14,10 @@ public class AiChicken : Chicken, IDetector
     private AudioDetection audiodetection;
     private NavMeshAgent agent;
     [SerializeField] private HearStats activehearing;
+    public Action OnCaught;
+    public Action OnFreed;
+    private static int chickenCount;
+
     protected override void Awake()
     {
         base.Awake();
@@ -23,6 +29,13 @@ public class AiChicken : Chicken, IDetector
         agent.SetDestination(Vector3.zero);
         PlayerChicken.OnPlayerCaught += AiChickenGather;
         PlayerChicken.OnPlayerEscape += AiChickenFollow;
+        HUDManager.Instance.RegisterChicken(this);
+        GameManager.RegisterAIChicken();
+    }
+
+    private void OnDestroy()
+    {
+        HUDManager.Instance.DeRegisterChicken(this);
     }
 
     private void OnEnable()
@@ -31,18 +44,24 @@ public class AiChicken : Chicken, IDetector
         agent.enabled = true;
         audiodetection.SetStats(activehearing);
         BodyCollider.enabled = true;
+        chickenCount += 1;
+        ScoreManager.Instance.UpdateScore();
     }
     private void OnDisable()
     {
         facetarget.enabled = true;
         agent.ResetPath();
         agent.enabled = false;
-        BodyCollider.enabled = false;
+        BodyCollider.enabled = false; 
+        chickenCount -= 1;
+        ScoreManager.Instance.UpdateScore();
+
     }
     public override void OnCaptured()
     {
         enabled = false;
         agent.enabled = false;
+        OnCaught.Invoke();
     }
 
     public override void OnEscaped(Vector3 position)
@@ -56,6 +75,7 @@ public class AiChicken : Chicken, IDetector
     {
         enabled = true;
         agent.enabled = true;
+        OnFreed.Invoke();
     }
 
     protected override void HandleMovement()
@@ -85,5 +105,9 @@ public class AiChicken : Chicken, IDetector
         WaitUntil target = new WaitUntil(()=> agent.hasPath && agent.remainingDistance <= agent.stoppingDistance);
         yield return target;
         Destroy(gameObject);
+    }
+    public static int NumOfActiveAiChicken() 
+    {
+        return chickenCount;
     }
 }
